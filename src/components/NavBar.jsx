@@ -3,7 +3,7 @@ import './NavBar.css';
 
 const categoryEntries = Object.entries(CATEGORIES);
 
-function NavBar({ activeCategory, onCategoryChange, isMobile }) {
+function NavBar({ activeCategory, onCategoryChange, isMobile, onResumeClick }) {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -38,14 +38,9 @@ function NavBar({ activeCategory, onCategoryChange, isMobile }) {
       )}
 
       <div className="navbar-actions">
-        <a
-          className="navbar-resume"
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <button className="navbar-resume" onClick={onResumeClick}>
           Resume &darr;
-        </a>
+        </button>
       </div>
     </nav>
   );

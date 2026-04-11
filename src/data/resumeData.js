@@ -6,7 +6,6 @@ export const CATEGORIES = {
   contact: { label: 'Contact', color: '#06B6D4' },
   quotes: { label: 'Quotes', color: '#EAB308' },
   hobbies: { label: 'Hobbies', color: '#EC4899' },
-  photos: { label: 'Photos', color: '#6366F1' },
 };
 
 export const cards = [
@@ -123,13 +122,13 @@ export const cards = [
     category: 'projects',
     title: 'ASA Datafest 2024',
     subtitle: 'R, Statistical Modeling',
-    preview: 'May 2024',
+    preview: 'Mar 2024',
     width: 260,
     height: 155,
     expanded: {
       heading: 'ASA Datafest 2024',
       subheading: 'Statistical Modeling · R Programming · Data Visualization',
-      meta: 'May 2024',
+      meta: 'Mar. 2024',
       bullets: [
         'Developed multiple linear regression models achieving a 0.8699 R-squared to evaluate End-of-Chapter (EOC) performance against participation data.',
         'Programmatically identified that multiple-choice questions (comprising over 70% of the dataset) yielded no significant improvement in learning compared to other formats.',
@@ -197,15 +196,16 @@ export const cards = [
     id: 'contact',
     category: 'contact',
     title: 'Get in Touch',
-    subtitle: 'eugene.cheungt03@gmail.com',
+    subtitle: 'eugene.cheung03@gmail.com',
     preview: 'Bellevue, WA',
     width: 230,
     height: 150,
     expanded: {
       heading: 'Contact',
       links: [
-        { label: 'Email', url: 'mailto:eugene.cheungt03@gmail.com', text: 'eugene.cheungt03@gmail.com' },
+        { label: 'Email', url: 'mailto:eugene.cheung03@gmail.com', text: 'eugene.cheung03@gmail.com' },
         { label: 'LinkedIn', url: 'https://www.linkedin.com/in/cheung-e', text: 'linkedin.com/in/cheung-e' },
+        { label: 'Website', url: 'https://cheunge.dev', text: 'cheunge.dev' },
         { label: 'GitHub', url: 'https://github.com/eugene-cheung', text: 'github.com/eugene-cheung' },
         { label: 'Phone', url: 'tel:206-446-4067', text: '206-446-4067' },
         { label: 'Location', url: null, text: 'Bellevue, WA' },
@@ -247,20 +247,55 @@ export const cards = [
 
   // ===== HOBBIES =====
   {
-    id: 'hobby-1',
+    id: 'hobby-valorant',
     category: 'hobbies',
-    title: 'Photography',
+    title: 'Valorant',
     subtitle: '',
-    preview: 'Capturing moments',
+    preview: 'Competitive FPS',
     width: 195,
     height: 130,
     expanded: {
-      heading: 'Photography',
-      description: 'Add your photography hobby description here.',
+      heading: 'Valorant',
+      description: 'Competitive tactical shooter.',
+      links: [
+        { label: 'Tracker', url: 'https://tracker.gg/valorant/profile/riot/I%20hate%20spacey%236993/overview', text: 'tracker.gg' },
+      ],
     },
   },
   {
-    id: 'hobby-2',
+    id: 'hobby-chess',
+    category: 'hobbies',
+    title: 'Chess',
+    subtitle: '',
+    preview: 'TheEugenius on Chess.com',
+    width: 195,
+    height: 130,
+    expanded: {
+      heading: 'Chess',
+      description: 'Strategic board game enthusiast.',
+      links: [
+        { label: 'Profile', url: 'https://www.chess.com/member/theeugenius', text: 'chess.com/theeugenius' },
+      ],
+    },
+  },
+  {
+    id: 'hobby-tft',
+    category: 'hobbies',
+    title: 'TFT',
+    subtitle: '',
+    preview: 'Teamfight Tactics',
+    width: 195,
+    height: 130,
+    expanded: {
+      heading: 'Teamfight Tactics',
+      description: 'Auto-battler strategy game.',
+      links: [
+        { label: 'Profile', url: 'https://tactics.tools/player/na/I%20hate%20spacey/6993', text: 'tactics.tools' },
+      ],
+    },
+  },
+  {
+    id: 'hobby-gaming',
     category: 'hobbies',
     title: 'Gaming',
     subtitle: '',
@@ -271,44 +306,5 @@ export const cards = [
       heading: 'Gaming',
       description: 'Add your gaming hobby description here.',
     },
-  },
-  {
-    id: 'hobby-3',
-    category: 'hobbies',
-    title: 'Travel',
-    subtitle: '',
-    preview: 'Exploring new places',
-    width: 195,
-    height: 130,
-    expanded: {
-      heading: 'Travel',
-      description: 'Add your travel hobby description here.',
-    },
-  },
-
-  // ===== PHOTOS =====
-  {
-    id: 'photo-1',
-    category: 'photos',
-    isPhoto: true,
-    width: 180,
-    height: 180,
-    expanded: null,
-  },
-  {
-    id: 'photo-2',
-    category: 'photos',
-    isPhoto: true,
-    width: 200,
-    height: 150,
-    expanded: null,
-  },
-  {
-    id: 'photo-3',
-    category: 'photos',
-    isPhoto: true,
-    width: 160,
-    height: 200,
-    expanded: null,
   },
 ];
