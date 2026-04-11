@@ -9,6 +9,12 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  cursor: grab;
+  user-select: none;
+}
+
+.carousel-scene:active {
+  cursor: grabbing;
 }
 
 .carousel-ring {
@@ -145,6 +151,43 @@
   margin: 6px;
   color: rgba(255, 255, 255, 0.15);
   font-size: 28px;
+}
+
+/* ── Drag indicator ───────────────────────────── */
+.carousel-indicator {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.carousel-indicator-track {
+  width: 100px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 1px;
+  position: relative;
+}
+
+.carousel-indicator-thumb {
+  position: absolute;
+  top: -2px;
+  width: 20px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+}
+
+.carousel-indicator-text {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.15);
+  letter-spacing: 0.12em;
+  font-weight: 400;
 }
 
 /* ══════════════════════════════════════════════════

@@ -250,13 +250,13 @@ export const cards = [
     id: 'hobby-valorant',
     category: 'hobbies',
     title: 'Valorant',
-    subtitle: '',
+    subtitle: 'Peak: Immortal 1 (#2,147)',
     preview: 'Competitive FPS',
     width: 195,
     height: 130,
     expanded: {
       heading: 'Valorant',
-      description: 'Competitive tactical shooter.',
+      description: 'Peak: Immortal 1 — 36 RR (#2,147 NA)',
       links: [
         { label: 'Tracker', url: 'https://tracker.gg/valorant/profile/riot/I%20hate%20spacey%236993/overview', text: 'tracker.gg' },
       ],
@@ -266,13 +266,13 @@ export const cards = [
     id: 'hobby-chess',
     category: 'hobbies',
     title: 'Chess',
-    subtitle: '',
+    subtitle: 'Peak Blitz: 1918',
     preview: 'TheEugenius on Chess.com',
     width: 195,
     height: 130,
     expanded: {
       heading: 'Chess',
-      description: 'Strategic board game enthusiast.',
+      description: 'Peak Blitz rating: 1918 on Chess.com',
       links: [
         { label: 'Profile', url: 'https://www.chess.com/member/theeugenius', text: 'chess.com/theeugenius' },
       ],
@@ -292,19 +292,6 @@ export const cards = [
       links: [
         { label: 'Profile', url: 'https://tactics.tools/player/na/I%20hate%20spacey/6993', text: 'tactics.tools' },
       ],
-    },
-  },
-  {
-    id: 'hobby-gaming',
-    category: 'hobbies',
-    title: 'Gaming',
-    subtitle: '',
-    preview: 'Strategy & FPS',
-    width: 195,
-    height: 130,
-    expanded: {
-      heading: 'Gaming',
-      description: 'Add your gaming hobby description here.',
     },
   },
 ];

@@ -7,26 +7,16 @@ const COMPACT_W = 220;
 const COMPACT_H = 140;
 const EXPANDED_W = 500;
 const EXPANDED_H = 400;
-const ROTATION_SPEED = 0.012;
 const RADIUS = 700;
 const PERSPECTIVE = 1800;
 const DRAG_THRESHOLD = 8;
+const DRAG_SENSITIVITY = 0.2;
+const MOMENTUM_DECAY = 0.1;
+const SNAP_LERP_BASE = 0.01;
 
 const SPRING_OUT = { type: 'spring', damping: 30, stiffness: 260 };
 const SPRING_BACK = { type: 'spring', damping: 26, stiffness: 220 };
 const FLICK_SPEED = 350;
-
-function releaseVel(positions) {
-  if (positions.length < 2) return null;
-  const a = positions[positions.length - 1];
-  const b = positions[Math.max(0, positions.length - 3)];
-  const dt = (a.t - b.t) / 1000;
-  if (dt < 0.001) return null;
-  return {
-    x: ((a.x - b.x) / dt) * 0.012,
-    y: ((a.y - b.y) / dt) * 0.012,
-  };
-}
 
 function releaseSpeed(positions) {
   if (positions.length < 2) return 0;
@@ -37,35 +27,18 @@ function releaseSpeed(positions) {
   return Math.sqrt(((a.x - b.x) / dt) ** 2 + ((a.y - b.y) / dt) ** 2);
 }
 
-function slotScreenCenter(cardIdx, rotation, slotAngle, ringEl) {
-  const totalDeg =
-    ((slotAngle * cardIdx + rotation) % 360 + 360) % 360;
-  const theta = (totalDeg * Math.PI) / 180;
-  const x3d = RADIUS * Math.sin(theta);
-  const z3d = RADIUS * Math.cos(theta);
-  const denom = PERSPECTIVE - z3d;
-
-  let cx, cy;
-  if (ringEl) {
-    const rr = ringEl.getBoundingClientRect();
-    cx = rr.left + rr.width / 2;
-    cy = rr.top + rr.height / 2;
-  } else {
-    cx = window.innerWidth / 2;
-    cy = 70 + (window.innerHeight - 70) / 2;
-  }
-
-  if (denom <= 50) return { cx, cy };
-
-  const scale = PERSPECTIVE / denom;
-  return { cx: cx + x3d * scale, cy };
+function shortestAngleDiff(from, to) {
+  return ((to - from) % 360 + 540) % 360 - 180;
 }
 
 function Carousel({ activeCategory }) {
   const sceneRef = useRef(null);
   const ringRef = useRef(null);
   const slotRefs = useRef({});
+  const thumbRef = useRef(null);
   const rotationRef = useRef(0);
+  const velocityRef = useRef(0);
+  const targetRotationRef = useRef(null);
   const animFrameRef = useRef(null);
   const activeCategoryRef = useRef(activeCategory);
   const fadeProgressRef = useRef({});
@@ -95,7 +68,22 @@ function Carousel({ activeCategory }) {
     return sr ? { x: sr.left, y: sr.top } : { x: 0, y: 0 };
   }, []);
 
-  // ═══ rAF: rotation + per-card opacity (with crossfade during return) ═══
+  // ═══ Snap to category when navbar button is clicked ═══
+  useEffect(() => {
+    if (!activeCategory) {
+      targetRotationRef.current = null;
+      return;
+    }
+    const firstIdx = cards.findIndex((c) => c.category === activeCategory);
+    if (firstIdx === -1) return;
+
+    const targetRot = -(slotAngle * firstIdx);
+    const diff = shortestAngleDiff(rotationRef.current, targetRot);
+    targetRotationRef.current = rotationRef.current + diff;
+    velocityRef.current = 0;
+  }, [activeCategory, slotAngle]);
+
+  // ═══ rAF: momentum / snap + per-card opacity ═══
   useEffect(() => {
     let lastTime = performance.now();
 
@@ -104,13 +92,41 @@ function Carousel({ activeCategory }) {
       lastTime = time;
       const delta = Math.min(rawDelta, 32);
       const elapsed = time - startTimeRef.current;
+      const dtSec = delta / 1000;
 
-      const speedMult = activeCategoryRef.current ? 0.5 : 1;
-      rotationRef.current =
-        (rotationRef.current + ROTATION_SPEED * delta * speedMult) % 360;
+      const isSceneDragging =
+        dragRef.current && dragRef.current.source === 'scene';
+
+      if (!isSceneDragging) {
+        if (targetRotationRef.current !== null) {
+          const diff = shortestAngleDiff(
+            rotationRef.current,
+            targetRotationRef.current
+          );
+          if (Math.abs(diff) < 0.3) {
+            rotationRef.current = targetRotationRef.current;
+            targetRotationRef.current = null;
+            velocityRef.current = 0;
+          } else {
+            const lerp = 1 - Math.pow(SNAP_LERP_BASE, dtSec);
+            rotationRef.current += diff * lerp;
+            velocityRef.current = 0;
+          }
+        } else if (Math.abs(velocityRef.current) > 0.1) {
+          rotationRef.current += velocityRef.current * dtSec;
+          velocityRef.current *= Math.pow(MOMENTUM_DECAY, dtSec);
+          if (Math.abs(velocityRef.current) < 0.1) velocityRef.current = 0;
+        }
+      }
 
       if (ringRef.current) {
         ringRef.current.style.transform = `rotateY(${rotationRef.current}deg)`;
+      }
+
+      if (thumbRef.current) {
+        const norm = ((rotationRef.current % 360) + 360) % 360;
+        const pct = (norm / 360) * 100;
+        thumbRef.current.style.left = `calc(${pct}% - 10px)`;
       }
 
       const activeCat = activeCategoryRef.current;
@@ -143,7 +159,10 @@ function Carousel({ activeCategory }) {
         let op;
         if (hiddenId === card.id) {
           if (ret && ret.cardId === card.id) {
-            const t = Math.min(1, Math.max(0, (time - ret.startTime - 80) / 450));
+            const t = Math.min(
+              1,
+              Math.max(0, (time - ret.startTime - 80) / 450)
+            );
             op = depth * fade * t;
           } else {
             op = 0;
@@ -170,7 +189,7 @@ function Carousel({ activeCategory }) {
     returnAnimsRef.current = [];
   }, []);
 
-  // ═══ Start return: FM animate to actual slot position + crossfade ═══
+  // ═══ Start return ═══
   const startReturn = useCallback(
     () => {
       stopAllAnims();
@@ -180,7 +199,6 @@ function Carousel({ activeCategory }) {
       if (!cardId) return;
 
       const cardIdx = cards.findIndex((c) => c.id === cardId);
-      const slotEl = slotRefs.current[cardId];
 
       const angle = slotAngle * cardIdx;
       const totalDeg = ((angle + rotationRef.current) % 360 + 360) % 360;
@@ -193,8 +211,12 @@ function Carousel({ activeCategory }) {
       const so = sceneOffset();
       const x3d = RADIUS * Math.sin(theta);
       const rr = ringRef.current?.getBoundingClientRect();
-      const ringCx = rr ? rr.left + rr.width / 2 - so.x : window.innerWidth / 2 - so.x;
-      const ringCy = rr ? rr.top + rr.height / 2 - so.y : (70 + (window.innerHeight - 70) / 2) - so.y;
+      const ringCx = rr
+        ? rr.left + rr.width / 2 - so.x
+        : window.innerWidth / 2 - so.x;
+      const ringCy = rr
+        ? rr.top + rr.height / 2 - so.y
+        : 70 + (window.innerHeight - 70) / 2 - so.y;
 
       const tx = ringCx + x3d * scale - tw / 2;
       const ty = ringCy - th / 2;
@@ -273,6 +295,16 @@ function Carousel({ activeCategory }) {
       const d = dragRef.current;
       if (!d) return;
 
+      if (d.source === 'scene') {
+        const dx = e.clientX - d.startX;
+        rotationRef.current = d.startRotation - dx * DRAG_SENSITIVITY;
+        targetRotationRef.current = null;
+
+        d.positions.push({ x: e.clientX, t: performance.now() });
+        if (d.positions.length > 6) d.positions.shift();
+        return;
+      }
+
       const dx = e.clientX - d.startX;
       const dy = e.clientY - d.startY;
 
@@ -337,6 +369,19 @@ function Carousel({ activeCategory }) {
       if (!d) return;
       dragRef.current = null;
 
+      if (d.source === 'scene') {
+        if (d.positions.length >= 2) {
+          const a = d.positions[d.positions.length - 1];
+          const b = d.positions[Math.max(0, d.positions.length - 3)];
+          const dt = (a.t - b.t) / 1000;
+          if (dt > 0.001) {
+            velocityRef.current =
+              -((a.x - b.x) / dt) * DRAG_SENSITIVITY;
+          }
+        }
+        return;
+      }
+
       if (d.source === 'carousel') {
         if (d.isDragging) {
           startReturn();
@@ -364,11 +409,30 @@ function Carousel({ activeCategory }) {
     };
   }, [oX, oY, oW, oH, oOpacity, startReturn, extractToCenter, sceneOffset]);
 
-  // ═══ Carousel card pointerdown ═══
+  // ═══ Scene pointerdown (drag to rotate) ═══
+  const handleScenePointerDown = useCallback((e) => {
+    if (extractedIdRef.current || returningRef.current) return;
+    if (e.target.closest('.carousel-card')) return;
+    if (e.button !== undefined && e.button !== 0) return;
+    e.preventDefault();
+
+    targetRotationRef.current = null;
+    velocityRef.current = 0;
+
+    dragRef.current = {
+      source: 'scene',
+      startX: e.clientX,
+      startRotation: rotationRef.current,
+      positions: [{ x: e.clientX, t: performance.now() }],
+    };
+  }, []);
+
+  // ═══ Card pointerdown ═══
   const handleCardPointerDown = useCallback((card, e) => {
     if (extractedIdRef.current || returningRef.current) return;
     if (e.button !== undefined && e.button !== 0) return;
     e.preventDefault();
+    e.stopPropagation();
 
     const slotEl = slotRefs.current[card.id];
     if (!slotEl) return;
@@ -388,7 +452,7 @@ function Carousel({ activeCategory }) {
     };
   }, []);
 
-  // ═══ Overlay card pointerdown (drag expanded card) ═══
+  // ═══ Overlay pointerdown ═══
   const handleOverlayPointerDown = useCallback(
     (e) => {
       if (!extractedIdRef.current || returningRef.current) return;
@@ -430,8 +494,12 @@ function Carousel({ activeCategory }) {
   const isExpanded = overlayCard && overlayCard.phase !== 'returning';
 
   return (
-    <div ref={sceneRef} className="carousel-scene" style={{ perspective: PERSPECTIVE }}>
-      {/* 3D ring */}
+    <div
+      ref={sceneRef}
+      className="carousel-scene"
+      style={{ perspective: PERSPECTIVE }}
+      onPointerDown={handleScenePointerDown}
+    >
       <div className="carousel-ring" ref={ringRef}>
         {cards.map((card, i) => {
           const angle = slotAngle * i;
@@ -463,6 +531,16 @@ function Carousel({ activeCategory }) {
           );
         })}
       </div>
+
+      {/* Drag indicator */}
+      {!overlayCard && (
+        <div className="carousel-indicator">
+          <div className="carousel-indicator-track">
+            <div className="carousel-indicator-thumb" ref={thumbRef} />
+          </div>
+          <span className="carousel-indicator-text">← drag to explore →</span>
+        </div>
+      )}
 
       {/* Backdrop */}
       <AnimatePresence>
@@ -503,7 +581,6 @@ function Carousel({ activeCategory }) {
   );
 }
 
-// ═══ Compact card content (carousel slots) ═══
 function CardCompact({ card, cat }) {
   if (card.isQuote) {
     return (
@@ -540,7 +617,6 @@ function CardCompact({ card, cat }) {
   );
 }
 
-// ═══ Full card content (overlay — shows details when expanded) ═══
 function CardFull({ card, expanded }) {
   const cat = CATEGORIES[card.category];
   const data = card.expanded;
