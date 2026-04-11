@@ -72,7 +72,7 @@
   flex-shrink: 0;
 }
 
-.navbar-shuffle {
+.navbar-organize {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -88,18 +88,24 @@
   transition: all 0.2s;
 }
 
-.navbar-shuffle:hover {
+.navbar-organize:hover {
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-.navbar-shuffle:active {
+.navbar-organize:active {
   transform: scale(0.95);
 }
 
-.navbar-shuffle svg {
+.navbar-organize svg {
   flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    padding: 0 16px;
+  }
 }
 
 .navbar-resume {

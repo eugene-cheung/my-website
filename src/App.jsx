@@ -1,26 +1,31 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from './components/NavBar';
-import PhysicsWorld from './components/PhysicsWorld';
+import Carousel from './components/Carousel';
+import MobileLayout from './components/MobileLayout';
 import './App.css';
 
 function App() {
   const [activeCategory, setActiveCategory] = useState(null);
-  const [expandedCard, setExpandedCard] = useState(null);
-  const shuffleRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   return (
     <div className="app">
       <NavBar
         activeCategory={activeCategory}
         onCategoryChange={setActiveCategory}
-        onShuffle={() => shuffleRef.current?.current?.()}
+        isMobile={isMobile}
       />
-      <PhysicsWorld
-        activeCategory={activeCategory}
-        expandedCard={expandedCard}
-        setExpandedCard={setExpandedCard}
-        onShuffleReady={(ref) => { shuffleRef.current = ref; }}
-      />
+      {isMobile ? (
+        <MobileLayout activeCategory={activeCategory} />
+      ) : (
+        <Carousel activeCategory={activeCategory} />
+      )}
     </div>
   );
 }
