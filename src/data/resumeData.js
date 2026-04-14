@@ -11,17 +11,17 @@ export const CATEGORIES = {
 export const cards = [
   // ===== EDUCATION =====
   {
-    id: 'edu-usc',
+    id: 'edu-uiuc',
     category: 'education',
-    title: 'USC',
+    title: 'UIUC',
     subtitle: 'M.S. Computer Science',
     preview: 'Aug 2026 – May 2028',
     width: 280,
     height: 160,
     expanded: {
-      heading: 'University of Southern California',
+      heading: 'University of Illinois Urbana-Champaign',
       subheading: 'Master of Science in Computer Science',
-      meta: 'Los Angeles, CA  ·  Aug. 2026 – May 2028',
+      meta: 'Urbana-Champaign, IL  ·  Aug. 2026 – May 2028',
     },
   },
   {

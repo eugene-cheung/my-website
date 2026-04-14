@@ -18,7 +18,7 @@ const WIDE_IDS = new Set(['exp-customboxes', 'exp-researcher', 'exp-analog']);
 
 const BENTO_ORDER = [
   'exp-customboxes',
-  'edu-usc',
+  'edu-uiuc',
   'contact',
   'exp-researcher',
   'edu-uw',
