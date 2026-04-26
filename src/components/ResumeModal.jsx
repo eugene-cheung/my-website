@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './ResumeModal.css';
 
-const RESUME_URL = `${import.meta.env.BASE_URL}Eugene_Cheung___Resume.pdf`;
+const RESUME_URL = `${import.meta.env.BASE_URL}resume.pdf`;
 
 function ResumeModal({ open, onClose }) {
   useEffect(() => {
