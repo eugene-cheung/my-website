@@ -82,7 +82,21 @@ function MobileLayout({ activeCategory }) {
                     </>
                   ) : (
                     <>
-                      <h3 className="mobile-card-title">{card.title}</h3>
+                      <h3 className="mobile-card-title">
+                        {card.expanded?.headingUrl ? (
+                          <a
+                            href={card.expanded.headingUrl}
+                            className="mobile-card-title-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {card.title}
+                          </a>
+                        ) : (
+                          card.title
+                        )}
+                      </h3>
                       {card.subtitle && (
                         <p className="mobile-card-subtitle">
                           {card.subtitle}

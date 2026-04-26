@@ -24,6 +24,7 @@ const BENTO_ORDER = [
   'edu-uw',
   'skills-languages',
   'exp-analog',
+  'proj-elosurgery',
   'proj-findmyuwprof',
   'skills-frameworks',
   'proj-datafest',

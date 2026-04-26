@@ -94,6 +94,17 @@
   text-overflow: ellipsis;
 }
 
+.cc-heading-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  outline: none;
+}
+
+.cc-heading-link:hover {
+  color: #fff;
+}
+
 .cc-subtitle {
   font-size: 11px;
   color: rgba(255, 255, 255, 0.5);

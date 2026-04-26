@@ -72,7 +72,21 @@ function ExpandedCard({ cardData, fromRect, onClose }) {
         <div className="ex-accent-bar" style={{ backgroundColor: cat.color }} />
 
         <span className="ex-category" style={{ color: cat.color }}>{cat.label}</span>
-        <h2 className="ex-heading">{data.heading}</h2>
+        <h2 className="ex-heading">
+          {data.headingUrl ? (
+            <a
+              href={data.headingUrl}
+              className="ex-heading-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {data.heading}
+            </a>
+          ) : (
+            data.heading
+          )}
+        </h2>
         {data.subheading && <h3 className="ex-subheading">{data.subheading}</h3>}
         {data.meta && <p className="ex-meta">{data.meta}</p>}
 

@@ -17,6 +17,7 @@ const SNAP_LERP_BASE = 0.01;
 const SPRING_OUT = { type: 'spring', damping: 30, stiffness: 260 };
 const SPRING_BACK = { type: 'spring', damping: 26, stiffness: 220 };
 const FLICK_SPEED = 350;
+const WHEEL_ROTATION = 0.14;
 
 function releaseSpeed(positions) {
   if (positions.length < 2) return 0;
@@ -82,6 +83,18 @@ function Carousel({ activeCategory }) {
     targetRotationRef.current = rotationRef.current + diff;
     velocityRef.current = 0;
   }, [activeCategory, slotAngle]);
+
+  // ═══ Scroll/wheel: rotate ring (desktop) ═══
+  useEffect(() => {
+    const onWheel = (e) => {
+      if (extractedIdRef.current || returningRef.current) return;
+      rotationRef.current -= e.deltaY * WHEEL_ROTATION;
+      targetRotationRef.current = null;
+      velocityRef.current = 0;
+    };
+    window.addEventListener('wheel', onWheel, { passive: true });
+    return () => window.removeEventListener('wheel', onWheel);
+  }, []);
 
   // ═══ rAF: momentum / snap + per-card opacity ═══
   useEffect(() => {
@@ -538,7 +551,7 @@ function Carousel({ activeCategory }) {
           <div className="carousel-indicator-track">
             <div className="carousel-indicator-thumb" ref={thumbRef} />
           </div>
-          <span className="carousel-indicator-text">← drag to explore →</span>
+          <span className="carousel-indicator-text">← drag or scroll to explore →</span>
         </div>
       )}
 
@@ -581,6 +594,25 @@ function Carousel({ activeCategory }) {
   );
 }
 
+function titleContent(card) {
+  const url = card.expanded?.headingUrl;
+  if (url) {
+    return (
+      <a
+        href={url}
+        className="cc-heading-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        onPointerDown={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {card.title}
+      </a>
+    );
+  }
+  return card.title;
+}
+
 function CardCompact({ card, cat }) {
   if (card.isQuote) {
     return (
@@ -609,7 +641,7 @@ function CardCompact({ card, cat }) {
         <span className="cc-category" style={{ color: cat.color }}>
           {cat.label}
         </span>
-        <h3 className="cc-title">{card.title}</h3>
+        <h3 className="cc-title">{titleContent(card)}</h3>
         {card.subtitle && <p className="cc-subtitle">{card.subtitle}</p>}
         {card.preview && <p className="cc-preview">{card.preview}</p>}
       </div>
@@ -651,7 +683,22 @@ function CardFull({ card, expanded }) {
           {cat.label}
         </span>
         <h3 className="cc-title ov-title">
-          {expanded && data?.heading ? data.heading : card.title}
+          {expanded && data?.heading
+            ? data.headingUrl
+              ? (
+                <a
+                  href={data.headingUrl}
+                  className="cc-heading-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {data.heading}
+                </a>
+              )
+              : data.heading
+            : titleContent(card)}
         </h3>
         {expanded && data?.subheading ? (
           <p className="cc-subtitle">{data.subheading}</p>

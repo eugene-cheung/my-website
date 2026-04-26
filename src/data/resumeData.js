@@ -64,13 +64,13 @@ export const cards = [
     category: 'experience',
     title: 'Backend SDE Intern',
     subtitle: 'Customboxes.io',
-    preview: 'Jun 2025 – Nov 2025',
+    preview: 'Jun 2025 – Dec 2025',
     width: 300,
     height: 175,
     expanded: {
       heading: 'Backend SDE Intern',
       subheading: 'Customboxes.io',
-      meta: 'Remote  ·  Jun. 2025 – Nov. 2025',
+      meta: 'Remote  ·  Jun. 2025 – Dec. 2025',
       bullets: [
         'Engineered an OpenAI agentic system featuring 23 function-calling tools and Server-Sent Events (SSE) streaming, achieving a 90% reduction in user design time.',
         'Developed a Docker-containerized, headless Selenium web scraping pipeline featuring robust timeout handling, driving the automated extraction of 4 distinct branding classes (logos, fonts, links, QRs) from live merchant websites.',
@@ -88,6 +88,7 @@ export const cards = [
     height: 175,
     expanded: {
       heading: 'Software Engineer, Team Lead',
+      headingUrl: 'https://analogclubuw.org',
       subheading: 'Analog Club',
       meta: 'Seattle, WA  ·  Sep. 2024 – Present',
       bullets: [
@@ -99,6 +100,26 @@ export const cards = [
   },
 
   // ===== PROJECTS =====
+  {
+    id: 'proj-elosurgery',
+    category: 'projects',
+    title: 'elosurgery',
+    subtitle: 'FastAPI, Next.js, Python, TypeScript, D3.js, Data analysis',
+    preview: 'Apr. 2026',
+    width: 260,
+    height: 155,
+    expanded: {
+      heading: 'elosurgery',
+      headingUrl: 'https://elosurgery.vercel.app',
+      subheading: 'FastAPI · Next.js · Python · TypeScript · D3.js · Data analysis',
+      meta: 'Apr. 2026',
+      bullets: [
+        'Processed 5,000 games per request without frontend timeouts by architecting a scalable, asynchronous FastAPI background worker and a custom Next.js client-polling workflow.',
+        'Quantified player psychology across thousands of raw PGNs by engineering a python-chess data pipeline, utilizing Kaplan-Meier survival curves and HHI models to analyze time-on-clock variance.',
+        'Eliminated redundant API parsing and achieved near-instant dashboard loads by implementing a versioned SQLite caching layer alongside responsive D3.js heatmaps and a custom narrative engine.',
+      ],
+    },
+  },
   {
     id: 'proj-findmyuwprof',
     category: 'projects',
@@ -127,6 +148,7 @@ export const cards = [
     height: 155,
     expanded: {
       heading: 'ASA Datafest 2024',
+      headingUrl: 'https://canva.link/se4zbmo67q6u0aq',
       subheading: 'Statistical Modeling · R Programming · Data Visualization',
       meta: 'Mar. 2024',
       bullets: [
