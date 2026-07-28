@@ -1,10 +1,10 @@
 .resume-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 200;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  z-index: 100;
+  background: rgba(26, 26, 18, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,34 +12,31 @@
 }
 
 .resume-modal {
-  width: 100%;
-  max-width: 800px;
-  height: 90vh;
-  background: rgba(18, 18, 28, 0.98);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  width: min(880px, 100%);
+  height: min(88vh, 1100px);
   display: flex;
   flex-direction: column;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow:
-    0 32px 80px rgba(0, 0, 0, 0.6),
-    0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 80px rgba(26, 26, 18, 0.35);
 }
 
 .resume-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  flex-shrink: 0;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--rule-soft);
+  background: var(--bg);
 }
 
 .resume-title {
-  font-size: 16px;
+  font-family: var(--serif);
+  font-size: 19px;
   font-weight: 600;
-  color: #fff;
-  margin: 0;
+  color: var(--ink);
 }
 
 .resume-actions {
@@ -49,67 +46,50 @@
 }
 
 .resume-download {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #fff;
-  font-family: 'Inter', sans-serif;
-  font-size: 12.5px;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 13px;
   font-weight: 500;
-  padding: 7px 16px;
-  border-radius: 8px;
+  color: #f6efdd;
+  background: var(--jade);
+  border: 1px solid var(--jade-deep);
+  border-radius: 999px;
+  padding: 8px 16px;
   text-decoration: none;
-  cursor: pointer;
   transition: background 0.2s;
 }
 
 .resume-download:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--jade-bright);
+  color: #fff;
 }
 
 .resume-close {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  font-size: 24px;
   line-height: 1;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink-soft);
+  transition: border-color 0.2s, color 0.2s;
 }
 
 .resume-close:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
+  border-color: var(--vermillion);
+  color: var(--vermillion);
 }
 
 .resume-embed-wrap {
   flex: 1;
-  min-height: 0;
-  padding: 0;
-  background: #525659;
+  background: var(--bg-alt);
 }
 
 .resume-embed {
   width: 100%;
   height: 100%;
   border: none;
-}
-
-@media (max-width: 767px) {
-  .resume-backdrop {
-    padding: 12px;
-  }
-
-  .resume-modal {
-    height: 95vh;
-    border-radius: 12px;
-  }
 }

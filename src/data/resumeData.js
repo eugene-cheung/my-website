@@ -266,6 +266,16 @@ export const cards = [
     height: 130,
     expanded: null,
   },
+  {
+    id: 'quote-4',
+    category: 'quotes',
+    isQuote: true,
+    quoteText: 'If my mind can conceive it, and my heart can believe it — then I can achieve it.',
+    quoteAuthor: 'Muhammad Ali',
+    width: 260,
+    height: 140,
+    expanded: null,
+  },
 
   // ===== HOBBIES =====
   {
@@ -288,31 +298,15 @@ export const cards = [
     id: 'hobby-chess',
     category: 'hobbies',
     title: 'Chess',
-    subtitle: 'Peak Blitz: 1918',
+    subtitle: 'Peak Blitz: 2001',
     preview: 'TheEugenius on Chess.com',
     width: 195,
     height: 130,
     expanded: {
       heading: 'Chess',
-      description: 'Peak Blitz rating: 1918 on Chess.com',
+      description: 'Peak Blitz rating: 2001 on Chess.com',
       links: [
         { label: 'Profile', url: 'https://www.chess.com/member/theeugenius', text: 'chess.com/theeugenius' },
-      ],
-    },
-  },
-  {
-    id: 'hobby-tft',
-    category: 'hobbies',
-    title: 'TFT',
-    subtitle: '',
-    preview: 'Teamfight Tactics',
-    width: 195,
-    height: 130,
-    expanded: {
-      heading: 'Teamfight Tactics',
-      description: 'Auto-battler strategy game.',
-      links: [
-        { label: 'Profile', url: 'https://tactics.tools/player/na/I%20hate%20spacey/6993', text: 'tactics.tools' },
       ],
     },
   },

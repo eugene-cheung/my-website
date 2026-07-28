@@ -1,0 +1,288 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 96px 24px 200px;
+}
+
+/* ── Mountains ── */
+.hero-mountains {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 46%;
+  pointer-events: none;
+}
+
+.hero-range {
+  position: absolute;
+  inset: auto 0 0 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-range-far {
+  height: 100%;
+}
+
+.hero-range-near {
+  height: 78%;
+}
+
+.hero-mist {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 60%;
+  background: linear-gradient(180deg, transparent, var(--bg) 92%);
+}
+
+/* ── Vertical poem ── */
+.hero-poem {
+  position: absolute;
+  top: 108px;
+  right: clamp(20px, 5vw, 72px);
+  display: flex;
+  gap: 14px;
+  writing-mode: vertical-rl;
+  font-family: var(--brush);
+  font-size: clamp(19px, 2.2vw, 26px);
+  letter-spacing: 8px;
+  color: var(--ink-muted);
+  opacity: 0.85;
+}
+
+/* ── Content ── */
+.hero-content {
+  position: relative;
+  max-width: 780px;
+  text-align: center;
+  z-index: 2;
+}
+
+.hero-kicker {
+  font-family: var(--sans);
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--vermillion);
+  font-weight: 500;
+}
+
+.hero-name-row {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 26px;
+}
+
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(52px, 9.5vw, 108px);
+  font-weight: 500;
+  letter-spacing: -3px;
+  line-height: 1.02;
+  color: var(--ink);
+}
+
+/* Vertical signature column, like a painter's mark on a scroll:
+   brush name above, red seal stamped below. */
+.hero-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 0 clamp(14px, 2.5vw, 26px);
+  flex-shrink: 0;
+}
+
+.hero-sig-name {
+  writing-mode: vertical-rl;
+  font-family: var(--brush);
+  font-size: clamp(20px, 2.6vw, 28px);
+  line-height: 1;
+  letter-spacing: 7px;
+  color: var(--ink-soft);
+}
+
+.hero-seal {
+  font-family: var(--brush);
+  font-size: 21px;
+  line-height: 1;
+  color: #f6efdd;
+  background: linear-gradient(150deg, var(--vermillion), var(--vermillion-deep));
+  border: 2px solid rgba(246, 239, 221, 0.55);
+  outline: 3px solid var(--vermillion-deep);
+  border-radius: 5px;
+  padding: 7px 6px 4px;
+  box-shadow: 0 3px 10px rgba(156, 0, 0, 0.35);
+}
+
+.hero-lede {
+  margin: 30px auto 0;
+  max-width: 560px;
+  font-family: var(--serif);
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* ── Tile wall (section navigation) ── */
+.hero-wall {
+  position: absolute;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+
+.hero-wall-tile {
+  width: clamp(38px, 4.5vw, 56px);
+  font-size: 10px;
+}
+
+.hero-wall-link {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  outline: none;
+}
+
+.hero-wall-link .hero-wall-tile {
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-wall-link:hover .hero-wall-tile,
+.hero-wall-link:focus-visible .hero-wall-tile {
+  transform: translateY(-10px);
+}
+
+/* Hover label above the tile */
+.hero-wall-tip {
+  position: absolute;
+  bottom: calc(100% + 16px);
+  left: 50%;
+  transform: translate(-50%, 6px);
+  white-space: nowrap;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 5px 12px;
+  box-shadow: 0 4px 14px rgba(26, 26, 18, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-wall-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--rule);
+}
+
+.hero-wall-link:hover .hero-wall-tip,
+.hero-wall-link:focus-visible .hero-wall-tip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ── Scroll cue ── */
+.hero-scrollcue {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  z-index: 2;
+}
+
+.hero-scrollcue-text {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.hero-scrollcue-track {
+  position: relative;
+  width: 1px;
+  height: 34px;
+  background: var(--rule);
+  overflow: hidden;
+}
+
+.hero-scrollcue-line {
+  position: absolute;
+  inset: 0;
+  background: var(--jade);
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .hero-poem {
+    display: none;
+  }
+  .hero-wall {
+    max-width: 100vw;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero {
+    padding-bottom: 170px;
+  }
+  .hero-kicker {
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+  .hero-signature {
+    gap: 8px;
+    margin-left: 12px;
+  }
+  .hero-sig-name {
+    font-size: 17px;
+    letter-spacing: 5px;
+  }
+  .hero-seal {
+    font-size: 15px;
+    padding: 5px 4px 3px;
+    outline-width: 2px;
+  }
+  .hero-wall {
+    gap: 6px;
+    bottom: 76px;
+  }
+  .hero-wall-tile {
+    width: 44px;
+  }
+  /* Keep only the six face-up navigation tiles; the face-down
+     spacers overflow a narrow viewport. */
+  .hero-wall > div:nth-child(odd) {
+    display: none;
+  }
+}

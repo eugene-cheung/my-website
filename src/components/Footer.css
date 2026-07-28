@@ -1,0 +1,64 @@
+/* Dark lacquer footer — the felt of the table at close of play. */
+.footer {
+  margin-top: clamp(80px, 11vw, 140px);
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 110%, rgba(184, 240, 182, 0.06), transparent 60%),
+    linear-gradient(180deg, #0f2311, #0c1a0e);
+  border-top: 3px solid var(--gold-soft);
+}
+
+.footer-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: clamp(48px, 7vw, 80px) 24px clamp(36px, 5vw, 56px);
+  text-align: center;
+}
+
+.footer-call {
+  font-family: var(--brush);
+  font-size: clamp(38px, 5vw, 54px);
+  line-height: 1;
+  color: #d4a849;
+  margin-bottom: 30px;
+}
+
+.footer-call-en {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  color: #8fa37f;
+  letter-spacing: 0.5px;
+}
+
+.footer-hand {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 40px;
+}
+
+.footer-tile {
+  width: clamp(32px, 3.6vw, 46px);
+  font-size: 8px;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.footer-tile:hover {
+  transform: translateY(-4px);
+}
+
+.footer-line {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: #8fa37f;
+}
+
+.footer-line a {
+  color: #b8f0b6;
+  text-decoration-color: rgba(184, 240, 182, 0.35);
+}
+
+.footer-line a:hover {
+  color: #d9f7d8;
+}

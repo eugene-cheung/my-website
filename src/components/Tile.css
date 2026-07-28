@@ -1,0 +1,45 @@
+/* A mahjong tile: ivory face sitting on a jade body. The solid
+   box-shadow layers below the face read as the tile's green side. */
+.mj-tile {
+  position: relative;
+  border-radius: 10%/ 8%;
+  box-shadow:
+    0 0.09em 0 0 #17771d,
+    0 0.16em 0 0 #0a4a1a,
+    0 0.19em 0 0 #003500,
+    0 0.35em 0.5em rgba(26, 26, 18, 0.22),
+    0 0.9em 1.6em rgba(26, 26, 18, 0.14);
+  font-size: 16px;
+}
+
+.mj-tile img {
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+  user-select: none;
+}
+
+/* ── Flip ── */
+.mj-flip {
+  perspective: 900px;
+  /* reserve height: tiles are 75x96 */
+  aspect-ratio: 75 / 102;
+}
+
+.mj-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.mj-flip-face {
+  position: absolute;
+  inset: 0 0 auto 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.mj-flip-back {
+  transform: rotateY(180deg);
+}
