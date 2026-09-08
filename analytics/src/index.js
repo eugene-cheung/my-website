@@ -45,6 +45,14 @@ function deviceOf(ua = '') {
 const str = (v, max = 512) => (typeof v === 'string' ? v.slice(0, max) : null);
 
 async function collect(request, env) {
+  // Anyone can POST to a public endpoint. Beacons are cross-origin, so browsers
+  // always attach Origin; reject a wrong one, but allow it missing rather than
+  // dropping real visits from clients that strip the header.
+  const origin = request.headers.get('origin');
+  if (origin && !ALLOWED_ORIGINS.has(origin)) {
+    return new Response(null, { status: 403 });
+  }
+
   let body = {};
   try {
     body = await request.json();
@@ -57,13 +65,22 @@ async function collect(request, env) {
   const ip = request.headers.get('cf-connecting-ip') || '';
   const salt = env.HASH_SALT || 'cheunge';
 
+  // A visit can beacon more than once (see the client's flush()). Keyed on
+  // visit_id, later beacons refine the same row: the section list and dwell
+  // time grow, and the original timestamp is kept.
   await env.DB.prepare(
-    `INSERT INTO views (ts, visitor, ip, country, region, city, timezone, asn, org,
+    `INSERT INTO views (visit_id, ts, visitor, ip, country, region, city, timezone, asn, org,
                         referrer, utm, path, user_agent, device, screen, language,
                         sections, dwell_ms, resume_opened, is_bot)
-     VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18,?19,?20)`
+     VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18,?19,?20,?21)
+     ON CONFLICT(visit_id) DO UPDATE SET
+       sections      = excluded.sections,
+       dwell_ms      = MAX(COALESCE(views.dwell_ms, 0), COALESCE(excluded.dwell_ms, 0)),
+       resume_opened = MAX(views.resume_opened, excluded.resume_opened),
+       path          = excluded.path`
   )
     .bind(
+      str(body.visitId, 64) || crypto.randomUUID(),
       new Date().toISOString(),
       await visitorHash(ip, ua, salt),
       ip,

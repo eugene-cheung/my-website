@@ -25,3 +25,7 @@ CREATE TABLE IF NOT EXISTS views (
 CREATE INDEX IF NOT EXISTS idx_views_ts      ON views(ts DESC);
 CREATE INDEX IF NOT EXISTS idx_views_visitor ON views(visitor);
 CREATE INDEX IF NOT EXISTS idx_views_org     ON views(org);
+
+-- Added after the first deploy: one row per visit, refined by later beacons.
+ALTER TABLE views ADD COLUMN visit_id TEXT;
+CREATE UNIQUE INDEX IF NOT EXISTS idx_views_visit ON views(visit_id);
