@@ -125,7 +125,7 @@ function Hero() {
           transition={{ duration: 0.7, delay: 0.9, ease }}
         >
           Building agentic systems, data pipelines, and expressing my
-          hobbies through tech — from Urbana-Champaign.
+          hobbies through tech — from Seattle and Urbana-Champaign.
         </motion.p>
       </div>
 
