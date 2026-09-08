@@ -22,6 +22,7 @@ export const cards = [
       heading: 'University of Illinois Urbana-Champaign',
       subheading: "Master's in Computer Science",
       meta: 'Urbana-Champaign, IL  ·  Aug. 2026 – May 2028',
+      coursework: ['Deep Learning for Healthcare', 'Artificial Intelligence'],
     },
   },
   {
@@ -36,6 +37,14 @@ export const cards = [
       heading: 'University of Washington',
       subheading: 'Bachelor of Arts in Geography: Data Science',
       meta: 'Seattle, WA  ·  Sep. 2022 – Jun. 2026',
+      coursework: [
+        'Machine Learning',
+        'Data Structures & Algorithms',
+        'Algorithms & Computational Complexity',
+        'Database Systems',
+        'Probability',
+        'Matrix Algebra',
+      ],
     },
   },
 
@@ -45,17 +54,17 @@ export const cards = [
     category: 'experience',
     title: 'Student Researcher',
     subtitle: 'UW Bothell',
-    preview: 'Sep 2025 – Present',
+    preview: 'Sep 2025 – Jun 2026',
     width: 300,
     height: 175,
     expanded: {
       heading: 'Student Researcher',
-      subheading: 'University of Washington – Bothell',
-      meta: 'Remote  ·  Sep. 2025 – Present',
+      subheading: 'University of Washington – Bothell (DAIS Lab, Dr. Dong Si)',
+      meta: 'Remote  ·  Sep. 2025 – Jun. 2026',
       bullets: [
-        'Engineered an end-to-end PyTorch and BioPython extraction pipeline that resulted in a curated 31,453-sample dataset spanning 24 classification classes.',
-        'Conducted 10 controlled ablation experiments utilizing custom sugar-masking techniques that resulted in a +4.38 percentage point increase in model classification accuracy at convergence.',
-        'Deployed automated Python and Bash inference pipelines on a multi-GPU Linux cluster to process 1,995 cryo-EM maps, which resulted in 200 successful generative vs. discriminative model evaluations.',
+        'Built a NumPy/BioPython pipeline to extract RNA motifs from molecular structures and cryo-EM maps, curating 31,453 samples across 24 classes for model training.',
+        'Trained PyTorch RNA motif classifiers and ran 10 controlled ablations of sugar-atom masking, reducing relative classification error by ~25% and improving accuracy by 4.38 percentage points.',
+        'Automated Python/Bash inference on a multi-GPU Linux cluster, processing 1,995 cryo-EM maps and completing 200 model evaluations for downstream RNA structural analysis.',
       ],
     },
   },
@@ -72,7 +81,7 @@ export const cards = [
       subheading: 'Customboxes.io',
       meta: 'Remote  ·  Jun. 2025 – Dec. 2025',
       bullets: [
-        'Engineered an OpenAI agentic system featuring 23 function-calling tools and Server-Sent Events (SSE) streaming, achieving a 90% reduction in user design time.',
+        'Built an OpenAI Agents SDK packaging-design assistant with 23 function-calling tools and SSE streaming for live preview updates, reducing user design time by 90%.',
         'Developed a Docker-containerized, headless Selenium web scraping pipeline featuring robust timeout handling, driving the automated extraction of 4 distinct branding classes (logos, fonts, links, QRs) from live merchant websites.',
         'Built a Python machine learning pipeline utilizing PyTorch, CLIP embeddings, and OCR text anchoring, resulting in the elimination of 70-80% of dieline noise for precise PDF analysis.',
       ],
@@ -83,14 +92,14 @@ export const cards = [
     category: 'experience',
     title: 'SWE Team Lead',
     subtitle: 'Analog Club',
-    preview: 'Sep 2024 – Present',
+    preview: 'Sep 2024 – Jun 2026',
     width: 300,
     height: 175,
     expanded: {
       heading: 'Software Engineer, Team Lead',
       headingUrl: 'https://analogclubuw.org',
       subheading: 'Analog Club',
-      meta: 'Seattle, WA  ·  Sep. 2024 – Present',
+      meta: 'Seattle, WA  ·  Sep. 2024 – Jun. 2026',
       bullets: [
         'Managed 8 software engineering contributors utilizing Git workflows to review and merge 20+ pull requests, driving the deployment of a React Single Page Application for a community of 873 members.',
         'Engineered a custom React calendar component integrated with the Google Calendar API, achieving automated event notifications and streamlined discovery for cross-platform users.',
@@ -100,6 +109,26 @@ export const cards = [
   },
 
   // ===== PROJECTS =====
+  {
+    id: 'proj-mahjong-house',
+    category: 'projects',
+    title: 'Mahjong House',
+    subtitle: 'TypeScript, Node.js, Python, PyTorch, WebSockets, Docker',
+    preview: 'Jul. 2026',
+    width: 260,
+    height: 155,
+    expanded: {
+      heading: 'Mahjong House',
+      headingUrl: 'https://mj-house.fly.dev',
+      subheading: 'TypeScript · Node.js · Python · PyTorch · WebSockets · Docker',
+      meta: 'Jul. 2026',
+      bullets: [
+        'Distilled a PyTorch policy-value network from ~51k self-play trajectories and combined it with expected-value search, exporting weights to JSON for sub-50ms TypeScript inference.',
+        "Improved the agent's composite evaluation score by 175 points versus an aggressive baseline in seeded A/B ablations; raised winning-tile enumeration accuracy from 84% to 100% on a Hugging Face benchmark.",
+        'Deployed the agent in a real-time Node.js/WebSocket multiplayer platform with per-player state redaction and live JSONL decision logs to support subsequent ML training.',
+      ],
+    },
+  },
   {
     id: 'proj-elosurgery',
     category: 'projects',
@@ -165,12 +194,12 @@ export const cards = [
     category: 'skills',
     title: 'Languages',
     subtitle: '',
-    preview: 'Python · Java · JS · TS · SQL · R',
+    preview: 'Python · TS · SQL · Bash',
     width: 220,
     height: 130,
     expanded: {
       heading: 'Languages',
-      tags: ['Python', 'Java', 'JavaScript', 'TypeScript', 'SQL', 'R', 'HTML/CSS'],
+      tags: ['Python', 'TypeScript', 'JavaScript', 'SQL', 'Bash', 'Java', 'R', 'HTML/CSS'],
     },
   },
   {
@@ -178,12 +207,12 @@ export const cards = [
     category: 'skills',
     title: 'Frameworks',
     subtitle: '',
-    preview: 'React · Flask · PyTorch',
+    preview: 'React · FastAPI · PyTorch',
     width: 220,
     height: 130,
     expanded: {
       heading: 'Frameworks',
-      tags: ['React.js', 'Node.js/Express', 'Flask', 'PyTorch', 'scikit-learn', 'LangChain', 'OpenAI Agents SDK', 'JUnit'],
+      tags: ['React', 'Node.js', 'FastAPI', 'Next.js', 'PyTorch', 'OpenAI Agents SDK', 'D3.js', 'Flask', 'scikit-learn', 'LangChain'],
     },
   },
   {
@@ -191,12 +220,12 @@ export const cards = [
     category: 'skills',
     title: 'Dev Tools',
     subtitle: '',
-    preview: 'Git · PostgreSQL · Docker',
+    preview: 'Git · Docker · PostgreSQL',
     width: 220,
     height: 130,
     expanded: {
       heading: 'Developer Tools',
-      tags: ['Git', 'PostgreSQL', 'Supabase', 'pgvector', 'GraphQL', 'RESTful APIs', 'Edge Functions', 'SQLite', 'Linux', 'SSH', 'tmux'],
+      tags: ['Git', 'Docker', 'PostgreSQL', 'SQLite', 'WebSockets', 'Linux', 'Supabase', 'pgvector', 'GraphQL', 'RESTful APIs', 'SSH', 'tmux'],
     },
   },
   {
@@ -204,12 +233,12 @@ export const cards = [
     category: 'skills',
     title: 'AI / ML',
     subtitle: '',
-    preview: 'Deep Learning · CV · Agents',
+    preview: 'Deep Learning · CV · Agents · Game AI',
     width: 220,
     height: 130,
     expanded: {
       heading: 'AI / ML Domains',
-      tags: ['Applied Machine Learning', 'Deep Learning', 'Computer Vision', 'Agentic Systems'],
+      tags: ['Deep Learning', 'Computer Vision', 'Agentic Systems', 'Game AI', 'Applied Machine Learning'],
     },
   },
 

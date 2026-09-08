@@ -34,6 +34,12 @@ function Education() {
               <h3 className="card-heading">{item.expanded.heading}</h3>
               <p className="card-sub">{item.expanded.subheading}</p>
               <p className="card-meta">{item.expanded.meta}</p>
+              {item.expanded.coursework && (
+                <p className="card-coursework">
+                  <span className="card-coursework-label">Relevant coursework</span>
+                  {item.expanded.coursework.join(' · ')}
+                </p>
+              )}
             </div>
           </motion.article>
         ))}

@@ -6,7 +6,7 @@ import { Tile } from '../Tile';
 import './sections.css';
 
 const ease = [0.22, 1, 0.36, 1];
-const TIAO = ['tiao-1', 'tiao-5', 'tiao-9'];
+const TIAO = ['tiao-1', 'tiao-3', 'tiao-5', 'tiao-7', 'tiao-9'];
 
 function Projects() {
   const items = cards.filter((c) => c.category === 'projects');
@@ -28,7 +28,7 @@ function Projects() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, delay: i * 0.12, ease }}
           >
-            <Tile face={TIAO[i]} className="proj-tile" />
+            <Tile face={TIAO[i % TIAO.length]} className="proj-tile" />
             <span className="proj-pick-label">{item.title}</span>
           </motion.button>
         ))}
