@@ -20,7 +20,14 @@ every request for free — no third-party lookup service.
 ```bash
 cd analytics
 npx wrangler login
-npx wrangler d1 create cheunge-analytics        # paste the printed id into wrangler.toml
+npx wrangler d1 create cheunge-analytics
+```
+
+`d1 create` prints a `database_id`. Put it in `wrangler.toml` **before running
+anything else** — the remaining commands fail against a placeholder id. Ignore
+the `binding` it suggests; the Worker reads `env.DB`, so `binding = "DB"` stays.
+
+```bash
 npx wrangler d1 execute cheunge-analytics --remote --file=./schema.sql
 npx wrangler secret put DASH_KEY                # long random string; your dashboard password
 npx wrangler secret put HASH_SALT               # any random string
